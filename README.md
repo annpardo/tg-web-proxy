@@ -7,7 +7,6 @@
 - 新增 **web** 模式，配置中只增加 `MODES["web"]` 和 **WEB_DOMAIN**。
 - 端口、用户和密钥继续使用原来的 **PORT、USERS**，其它设置使用默认值。
 - **requirements.txt 原样保留**。新增 WEB 模块只使用 Python 标准库和原依赖中的 cryptography。
-- 不使用前一版启动器，不下载或编译 Go 程序，不需要 Docker、Nginx/Caddy 或 Tunnel。
 
 ## 上传和启用
 
