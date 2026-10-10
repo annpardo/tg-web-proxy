@@ -29,13 +29,10 @@ MODES = {
     "web": True,
 }
 
-WEB_DOMAIN = "mtp.tincg.de5.net"
+WEB_DOMAIN = ""
 ```
-
-原有的 `PORT` 仍填写面板分配的监听端口。你的实例使用 **24887**，因此应将原有的 `PORT = 443` 改为：
-
 ```python
-PORT = 24887
+PORT = 
 ```
 
 `USERS` 继续填自己的密钥。WEB 支持 **32 位十六进制**，以及 **`dd`＋32 位十六进制（共 34 位）**。例如，使用随机填充模式时，在原来的 32 位密钥前加上 `dd`，同时更新配置和客户端链接：
@@ -58,7 +55,7 @@ USERS = {
 
 - 域名开启橙云。
 - SSL/TLS 使用 **Full / 完全**。
-- 源站规则使用 **主机名等于 `mtp.tincg.de5.net`**，回源端口 **24887**。
+- 源站规则使用 **主机名等于 ``**，回源端口 ****。
 - 保持 WebSockets 开启，桥接页面和 API 不缓存，也不要对这个子域名插入挑战页或修改脚本。
 
 程序在 `PORT` 上接收真正的 HTTPS，并自动生成回源用的自签证书，保存在 `.webproxy/`。默认自签证书适用于 Cloudflare **Full**，不适用于 **Full (strict)**。`.webproxy/` 中没有需要手填的配置。
@@ -69,7 +66,7 @@ USERS = {
 Telegram 客户端
     ↓ HTTPS / WSS
 Cloudflare 的 443
-    ↓ HTTPS / WSS，回源 24887
+    ↓ HTTPS / WSS，回源 
 Python WEB 模块
     ↓ 本机内部连接
 你原来的 Python MTProxy 转发逻辑
