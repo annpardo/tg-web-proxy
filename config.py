@@ -1,4 +1,4 @@
-PORT = 8080
+PORT = 443
 
 # name -> secret (32 hex chars)
 # WEB mode also accepts dd + 32 hex chars (34 total) for random padding.
