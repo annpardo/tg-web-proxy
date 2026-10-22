@@ -473,9 +473,7 @@ class WebProxyServer:
         self.domain = canonical_domain(config.WEB_DOMAIN)
         self.backend_handler = backend_handler
         self.state_dir = Path(state_dir)
-        # WEB_TLS = False: serve plain HTTP/WS on PORT and let the layer in front
-        # (InstaCloud http endpoint, nginx) terminate TLS.
-        self.context = tls_context(self.domain, self.state_dir) if getattr(config, "WEB_TLS", True) else None
+        self.context = tls_context(self.domain, self.state_dir)
         key_path = self.state_dir / "token.key"
         if not key_path.exists():
             private_file(key_path, secrets.token_bytes(32))
@@ -511,7 +509,7 @@ class WebProxyServer:
             for address in addresses:
                 try:
                     server = await asyncio.start_server(self.connection, address, self.config.PORT,
-                        ssl=self.context, ssl_handshake_timeout=10 if self.context else None, limit=16384)
+                        ssl=self.context, ssl_handshake_timeout=10, limit=16384)
                 except OSError:
                     if ":" in address and len(self.servers) > 1:
                         print("WEB: IPv6 listener unavailable; IPv4 listener remains active", flush=True)
