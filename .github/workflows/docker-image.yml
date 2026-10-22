@@ -45,7 +45,7 @@ jobs:
               'FROM python:3.12-slim' \
               'ENV PYTHONUNBUFFERED=1' \
               'WORKDIR /app' \
-              'RUN pip install --no-cache-dir cryptography' \
+              'RUN pip install --no-cache-dir cryptography uvloop' \
               'COPY mtprotoproxy.py webproxy.py config.py ./' \
               'EXPOSE 443' \
               'CMD ["python", "mtprotoproxy.py"]' > "$file"
@@ -89,3 +89,17 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # 在 Linux runner 上把镜像真跑一次，确认 uvloop 被加载（不是"装了但没生效"）。
+      # 复用上面的 gha 缓存，多花的通常不到一分钟。
+      - name: Verify uvloop is active
+        run: |
+          docker buildx build --platform linux/amd64 --load \
+            --cache-from type=gha -f "${{ steps.dockerfile.outputs.path }}" -t tgwp:check .
+          out=$(timeout 90 docker run --rm tgwp:check sh -c 'timeout 10 python mtprotoproxy.py 2>&1' || true)
+          echo "$out"
+          if ! printf '%s' "$out" | grep -q "Found uvloop"; then
+            echo "::error::uvloop 没有被加载"
+            exit 1
+          fi
+          docker run --rm tgwp:check python -c "import uvloop, sys; print('uvloop', uvloop.__version__, 'on python', sys.version.split()[0])"
