@@ -24,7 +24,7 @@ MODES = {
 }
 
 # Only used in WEB mode. Your Cloudflare proxied hostname, without scheme/port.
-WEB_DOMAIN = "mtp.tincg.de5.net"
+WEB_DOMAIN = "mtp.tinc.kdns.fr"
 
 # The domain for TLS mode, bad clients are proxied there
 # Use random existing domain, proxy checks it on start
