@@ -1,4 +1,4 @@
-PORT = 49001
+PORT = 443
 
 # name -> secret (32 hex chars)
 # WEB mode also accepts dd + 32 hex chars (34 total) for random padding.
@@ -17,10 +17,10 @@ MODES = {
 
     # Makes the proxy even more hard to detect
     # Can be incompatible with old clients
-    "tls": True,
+    "tls": False,
 
     # WEB mode (enable on its own: set classic/secure/tls above to False)
-    "web": False
+    "web": true
 }
 
 # Only used in WEB mode. Your Cloudflare proxied hostname, without scheme/port.
