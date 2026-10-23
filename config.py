@@ -20,7 +20,7 @@ MODES = {
     "tls": False,
 
     # WEB mode (enable on its own: set classic/secure/tls above to False)
-    "web": true
+    "web": True
 }
 
 # Only used in WEB mode. Your Cloudflare proxied hostname, without scheme/port.
