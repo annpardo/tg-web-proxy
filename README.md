@@ -1,4 +1,3 @@
-<img width="1068" height="292" alt="image" src="https://github.com/user-attachments/assets/e61965dd-2c54-423b-8db7-2fe4b5de4ca4" /> dartnode.com
 
 # 在原 Python MTProxy 上新增 WEB 模式
 
